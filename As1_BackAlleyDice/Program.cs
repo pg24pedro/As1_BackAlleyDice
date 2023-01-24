@@ -73,15 +73,17 @@ namespace As1_BackAlleyDice
                 string sizeOfBetInput = Console.ReadLine();
                 int sizeOfBet = int.Parse(sizeOfBetInput);
 
-                //Initialize player's roll as an int list by using the rollDice function
-                //List<int> playerDices = rollDice();
-                List<int> playerDices = new List<int>() { 6,5,6};
+                //Initialize player's roll as an int list by using the rollDice function. Have one spare list delcaration for testing specific scenarios.
+                List<int> playerDices = rollDice();
+                //List<int> playerDices = new List<int>() { 6,5,6};
 
                 //Prints the dices you got on rollDice()
                 Console.WriteLine(string.Join(",",playerDices));
 
-                //diceCheck validates if the values that were rolled satisfy the type of bet the user placed
-                diceCheck userDiceCheck = new diceCheck(playerDices, typeOfBet,sizeOfBet);
+                //Create a userDiceCheck object in order to use the doCheck function.
+                diceCheck userDiceCheck = new diceCheck();
+                //Call the doCheck() function which recieves the dice's values, the type of bet and the size of the bet
+                //It returns the profit (or loss) of the player as an integer and prints the game messages.
                 int betResult = userDiceCheck.doCheck(playerDices, typeOfBet, sizeOfBet);
 
                 playerMoney += betResult;

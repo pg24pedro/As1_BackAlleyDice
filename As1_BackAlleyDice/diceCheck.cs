@@ -9,11 +9,8 @@ namespace As1_BackAlleyDice
     internal class diceCheck
     {
         
-        public diceCheck(List<int> playerDices, int typeOfBet, int sizeOfBet) {
-        
-            List<int> mPlayerDices = playerDices;
-            int mtypeOfBet = typeOfBet;
-            int mSizeOfBet = sizeOfBet;
+        public diceCheck() 
+        {
         }
        public int doCheck(List<int> playerDices, int typeOfBet, int sizeOfBet)
         {
@@ -64,7 +61,7 @@ namespace As1_BackAlleyDice
                     Console.WriteLine("You Loose! You Got Tripples");
                     sizeOfBet = -sizeOfBet;
                 }
-                else if (checkSum % 2 == 0)
+                else if (checkSum % 2 == 1)
                 {
                     Console.WriteLine("You Won!");
                 }
@@ -82,7 +79,7 @@ namespace As1_BackAlleyDice
                     Console.WriteLine("You Loose! You Got Tripples");
                     sizeOfBet = -sizeOfBet;
                 }
-                else if (checkSum % 2 == 1)
+                else if (checkSum % 2 == 0)
                 {
                     Console.WriteLine("You Won!");
                 }
@@ -94,7 +91,7 @@ namespace As1_BackAlleyDice
             }
 
             else if (typeOfBet == 5)
-            {
+            { 
                 if (playerDices.TrueForAll(x => x.Equals(1)))
                 {
                     Console.WriteLine("You Win! You Got Tripples of 1");
