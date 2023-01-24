@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
+
+
 namespace As1_BackAlleyDice
 {
     internal class Program
@@ -22,168 +24,6 @@ namespace As1_BackAlleyDice
             }
 
             return playerDices;
-        }
-
-        static void diceCheck(List<int> playerDices, int typeOfBet) 
-        { 
-            
-            int checkSum = playerDices.Sum();
-            Console.WriteLine("Dice sum: {0}", checkSum);
-            if (typeOfBet == 1)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(playerDices.First())))
-                {
-                    Console.WriteLine("You Loose! You Got Tripples");
-                }
-                else if (checkSum >= 11 && checkSum <= 17)
-                {
-                    Console.WriteLine("You Won!");
-                }
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 2)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(playerDices.First())))
-                {
-                    Console.WriteLine("You Loose! You Got Tripples");
-                }
-                else if (checkSum >= 4 && checkSum <= 10)
-                {
-                    Console.WriteLine("You Won!");
-                }
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 3)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(playerDices.First())))
-                {
-                    Console.WriteLine("You Loose! You Got Tripples");
-                }
-                else if (checkSum % 2 == 0)
-                {
-                    Console.WriteLine("You Won!");
-                }
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 4)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(playerDices.First())))
-                {
-                    Console.WriteLine("You Loose! You Got Tripples");
-                }
-                else if (checkSum % 2 == 1)
-                {
-                    Console.WriteLine("You Won!");
-                }
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 5)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(1)))
-                {
-                    Console.WriteLine("You Win! You Got Tripples of 1");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 6)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(2)))
-                {
-                    Console.WriteLine("You Win! You Got Tripples of 2");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 7)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(3)))
-                {
-                    Console.WriteLine("You Win! You Got Tripples of 3");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 8)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(4)))
-                {
-                    Console.WriteLine("You Win! You Got Tripples of 4");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 9)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(5)))
-                {
-                    Console.WriteLine("You Win! You Got Tripples of 5");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 10)
-            {
-                if (playerDices.TrueForAll(x => x.Equals(6)))
-                {
-                    Console.WriteLine("You Win! You Got Tripples of 6");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
-            else if (typeOfBet == 11)
-            {
-                if ((playerDices.Count(x => x == 1)) == 2)
-                {
-                    Console.WriteLine("You Win! You Got Doubles of 1");
-                }
-
-                else
-                {
-                    Console.WriteLine("You loose");
-                }
-            }
-
         }
 
         //Prints Welcome Message
@@ -219,6 +59,8 @@ namespace As1_BackAlleyDice
         {
             printWelcome();
             bool tst = true;
+            int playerMoney = 200;
+
             while (tst) 
             {
                 //Ask the user to enter the type of bet it wants to place
@@ -226,18 +68,24 @@ namespace As1_BackAlleyDice
                 string typeOfBetInput = Console.ReadLine();
                 int typeOfBet = int.Parse(typeOfBetInput);
 
+                //Ask the player how much money it wants to bet
+                Console.WriteLine("Type how much money you'd like to bet: ");
+                string sizeOfBetInput = Console.ReadLine();
+                int sizeOfBet = int.Parse(sizeOfBetInput);
+
                 //Initialize player's roll as an int list by using the rollDice function
-                List<int> playerDices = rollDice();
-                
-                //Checker for testing specific scenarios on the diceCheck() function
-                //List<int> playerDices = new List<int>() {6, 1, 1 };
-                
+                //List<int> playerDices = rollDice();
+                List<int> playerDices = new List<int>() { 6,5,6};
+
                 //Prints the dices you got on rollDice()
                 Console.WriteLine(string.Join(",",playerDices));
-                
-                //diceCheck validates if the values that were rolled satisfy the type of bet the user placed
-                diceCheck(playerDices, typeOfBet);
 
+                //diceCheck validates if the values that were rolled satisfy the type of bet the user placed
+                diceCheck userDiceCheck = new diceCheck(playerDices, typeOfBet,sizeOfBet);
+                int betResult = userDiceCheck.doCheck(playerDices, typeOfBet, sizeOfBet);
+
+                playerMoney += betResult;
+                Console.WriteLine("You have {0} money remaining....", playerMoney);
 
                 //---------------------------------------------------TO-DO-------------------------------------------------------
                 //---------------------------------------------------------------------------------------------------------------
